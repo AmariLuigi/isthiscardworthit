@@ -5,37 +5,69 @@
 		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<title>Divicards: PoE Card Drops & Weights</title>
+		<title>Is This Card Worth It? - PoE Farming Calculator</title>
 		<meta
 			name="description"
-			content="Path of Exile divination cards: Community-sourced drop locations and weights. Check where each card drops and its exact rarity."
+			content="Path of Exile divination cards: Calculate which cards are worth farming, with real-time price data from poe.ninja."
 		/>
 		<link rel="stylesheet" href="/node_modules/@shoelace-style/shoelace/dist/themes/light.css" />
 		<link rel="stylesheet" href="/node_modules/@shoelace-style/shoelace/dist/themes/dark.css" />
 		<link rel="stylesheet" href="/src/styles.css" />
 
-		<meta property="og:site_name" content="Divination Cards - divicards" />
+		<meta property="og:site_name" content="Is This Card Worth It?" />
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content="Divicards: Path of Exile Card Drops & Weights" />
+		<meta property="og:title" content="Is This Card Worth It? - PoE Farming Calculator" />
 		<meta
 			property="og:description"
-			content="Path of Exile divination cards: Community-sourced drop locations and weights. Check where each card drops and its exact rarity. 🔍"
+			content="Path of Exile divination cards: Calculate which cards are worth farming, with real-time price data from poe.ninja. Find the most profitable cards to target!"
 		/>
-		<meta property="og:url" content="https://divicards-site.pages.dev/" />
+		<meta property="og:url" content="https://isthiscardworthit.com/" />
 
 		<script type="module" src="/src/main.ts"></script>
 		<script type="module" src="/src/context/divcord/divcord-provider.ts"></script>
 		<script type="module" src="/src/context/view-transition-name-provider.ts"></script>
+		<script type="module" src="/src/context/card-value-context.ts"></script>
 		<script type="module" src="/src/main-layout.ts"></script>
 		<script type="module" src="/src/elements/e-topnav.ts"></script>
+		
+		<style>
+			:root {
+				--poe-primary-color: #af6025;
+				--poe-background: #1a1a1a;
+				--poe-card-bg: rgba(24, 26, 27, 0.6);
+				--poe-border-color: #3d4143;
+				
+				color-scheme: dark;
+			}
+			
+			body {
+				background-color: var(--poe-background);
+				color: #e5e5e5;
+				font-family: 'Fontin', system-ui, -apple-system, sans-serif;
+				line-height: 1.5;
+				margin: 0;
+				padding: 0;
+			}
+			
+			::selection {
+				background-color: var(--poe-primary-color);
+				color: white;
+			}
+
+			main-layout {
+				min-height: 100vh;
+			}
+		</style>
 	</head>
 	<body>
 		<divcord-provider>
 			<view-transition-names-provider>
-				<main-layout>
-					<e-topnav slot="header"></e-topnav>
-					<div slot="page"></div>
-				</main-layout>
+				<card-value-provider>
+					<main-layout>
+						<e-topnav slot="header"></e-topnav>
+						<div slot="page"></div>
+					</main-layout>
+				</card-value-provider>
 			</view-transition-names-provider>
 		</divcord-provider>
 	</body>

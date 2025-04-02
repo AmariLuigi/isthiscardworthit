@@ -66,8 +66,11 @@ export class MapElement extends LitElement {
 						'map-background': !this.map.unique,
 					})}
 				>
-					<a @click=${this.#dispatch_transition} href=${this.href} class="name"
-						><img
+					<a @click=${this.#dispatch_transition} 
+					   href=${this.href} 
+					   class="name"
+					   title="${this.map.name} (Monster level: 30)"
+					><img
 							class=${classMap({ 'img-map-glyph': true })}
 							width=${this.imageWidth}
 							height=${this.imageWidth}

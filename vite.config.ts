@@ -11,4 +11,14 @@ export default defineConfig({
 	worker: {
 		format: 'es',
 	},
+	server: {
+		proxy: {
+			'/poe-ninja-api': {
+				target: 'https://poe.ninja',
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/poe-ninja-api/, ''),
+				secure: false,
+			}
+		}
+	}
 });

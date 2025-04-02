@@ -14,6 +14,7 @@ import {
 	view_transition_names_context,
 	type ViewTransitionNamesContext,
 } from '../context/view-transition-name-provider';
+import '../elements/e-card-farming-value';
 
 /**
  * @csspart active_drop_source
@@ -69,7 +70,7 @@ export class CardPage extends LitElement {
 				</e-card-with-sources>
 				${card
 					? html`
-							<div slot="main-start">
+							<div slot="main-start" class="card-details">
 								${league
 									? html`<div>
 											<span class="text-gray-700">Release:</span>
@@ -80,6 +81,11 @@ export class CardPage extends LitElement {
 								<span class="text-gray-900"
 									><e-weight-value .weightData=${this.weightData}></e-weight-value
 								></span>
+								
+								<!-- Card farming value analysis section -->
+								<div class="farming-value-section">
+									<e-card-farming-value .cardName=${this.card}></e-card-farming-value>
+								</div>
 							</div>
 					  `
 					: nothing}
@@ -96,11 +102,36 @@ export class CardPage extends LitElement {
 			}
 		}
 
-		.text-gray-900 {
-			color: var(--sl-color-gray-900);
+		.page {
+			padding: 1rem;
+			max-width: 1200px;
+			margin: 0 auto;
 		}
+		
+		.card-details {
+			display: flex;
+			flex-direction: column;
+			gap: 0.75rem;
+			padding: 1rem;
+			background: rgba(24, 26, 27, 0.5);
+			border-radius: 6px;
+			border: 1px solid #3d4143;
+			margin-top: 1rem;
+		}
+		
+		.farming-value-section {
+			margin-top: 0.75rem;
+			width: 100%;
+		}
+		
 		.text-gray-700 {
-			color: var(--sl-color-gray-700);
+			color: #9ca3af;
+			font-weight: 600;
+			margin-right: 0.5rem;
+		}
+		
+		.text-gray-900 {
+			color: #e5e5e5;
 		}
 	`;
 }

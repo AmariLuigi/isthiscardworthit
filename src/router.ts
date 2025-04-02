@@ -37,7 +37,7 @@ export const router = new Router({
 	routes: [
 		{
 			path: '/',
-			title: 'Divicards: PoE Card Drops & Weights',
+			title: 'Is This Card Worth It? - PoE Farming Calculator',
 			render: ({ query }) => {
 				return html`<p-home
 					.page=${Number(query.page ?? 1)}
@@ -48,7 +48,7 @@ export const router = new Router({
 		},
 		{
 			path: '/divcord',
-			title: 'Divcord',
+			title: 'Divcord Drop Data - Is This Card Worth It?',
 			plugins: [lazy(() => import('./pages/p-divcord'))],
 			render: ({ query }) => html`<p-divcord
 				.page=${Number(query.page ?? 1)}
@@ -61,9 +61,10 @@ export const router = new Router({
 			title: context => {
 				const slug = context.params?.slug;
 				if (!slug) {
-					return 'Not Found';
+					return 'Card Not Found - Is This Card Worth It?';
 				}
-				return findCardBySlug(slug)?.name ?? 'Not Found';
+				const cardName = findCardBySlug(slug)?.name;
+				return cardName ? `${cardName} - Is This Card Worth It?` : 'Card Not Found - Is This Card Worth It?';
 			},
 			render: context => {
 				const card = findCardBySlug(context.params.slug);

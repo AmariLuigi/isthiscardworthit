@@ -27,6 +27,10 @@ export class CardWithSourcesElement extends LitElement {
 	@property() renderMode: RenderMode = 'compact';
 	/** Dropsource involved in view transitions */
 	@property({ reflect: true }) active_drop_source?: string;
+	/** Whether the card is expanded to show sources */
+	@property({ type: Boolean, reflect: true }) expanded: boolean = false;
+	/** Whether to show map tooltips */
+	@property({ type: Boolean }) mapTooltips: boolean = false;
 
 	@state() sources: Source[] = [];
 	@state() verifySources: Source[] = [];
@@ -49,7 +53,7 @@ export class CardWithSourcesElement extends LitElement {
 		});
 
 		return html`
-			<div style=${wrapperStyles} class="wrapper">
+			<div style=${wrapperStyles} class="wrapper ${this.expanded ? 'expanded' : ''}">
 				<e-divination-card
 					part="divination_card"
 					.name=${this.name}
@@ -93,6 +97,17 @@ export class CardWithSourcesElement extends LitElement {
 
 		:host {
 			display: inline-block;
+		}
+		
+		/* Hide sources by default - only show when expanded */
+		e-sources {
+			display: none;
+		}
+		
+		/* Show sources when the wrapper is expanded */
+		.wrapper.expanded e-sources {
+			display: block;
+			margin-top: 10px;
 		}
 	`;
 }

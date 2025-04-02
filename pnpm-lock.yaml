@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@lit-labs/context':
+        specifier: ^0.5.1
+        version: 0.5.1
       '@lit-labs/signals':
         specifier: ^0.1.2
         version: 0.1.2
@@ -239,6 +242,9 @@ packages:
 
   '@github/catalyst@1.6.0':
     resolution: {integrity: sha512-u8A+DameixqpeyHzvnJWTGj+wfiskQOYHzSiJscCWVfMkIT3rxnbHMtGh3lMthaRY21nbUOK71WcsCnCrXhBJQ==}
+
+  '@lit-labs/context@0.5.1':
+    resolution: {integrity: sha512-ELR50iyIFb0mOTkzR7bSUamipLY8QzbiXzTElJr+fInBhUpUbe4bx7Z2ekPO+WbunQRB2Bc3z/V7lIPTN+tbVQ==}
 
   '@lit-labs/signals@0.1.2':
     resolution: {integrity: sha512-hkOL0ua4ILeHlaJ8IqFKS+Y+dpYznWaDhdikzwt3zJ1/LPz3Etft4OPIMoltzbBJS5pyXPRseD/uWRlET3ImEA==}
@@ -947,6 +953,10 @@ snapshots:
   '@floating-ui/utils@0.2.9': {}
 
   '@github/catalyst@1.6.0': {}
+
+  '@lit-labs/context@0.5.1':
+    dependencies:
+      '@lit/context': 1.1.4
 
   '@lit-labs/signals@0.1.2':
     dependencies:

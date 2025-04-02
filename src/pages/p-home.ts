@@ -343,7 +343,7 @@ export class HomePage extends SignalWatcher(LitElement) {
 								<!-- More Info button only for cards with map sources -->
 								${hasMapSources ? html`
 									<button class="card-more-info-btn" @click=${() => this._toggleCardDetails(card)}>
-										${isExpanded ? 'Less Info' : '+ Info'}
+										${isExpanded ? '−' : '+'}
 									</button>
 								` : nothing}
 							</div>
@@ -785,11 +785,12 @@ export class HomePage extends SignalWatcher(LitElement) {
 			width: 250px; /* Keep width the same */
 			z-index: 10; /* Ensure expanded cards appear above others */
 			display: block;
+			box-shadow: 0 4px 20px rgba(175, 96, 37, 0.3); /* Add a themed glow for expanded cards */
 		}
 		
 		/* Add some spacing for expanded cards */
 		.card-list-item.expanded e-card-with-sources {
-			margin-bottom: 10px;
+			margin-bottom: 0; /* Remove bottom margin since we have the tab */
 		}
 		
 		/* Adjust card container for expanded state */
@@ -799,40 +800,50 @@ export class HomePage extends SignalWatcher(LitElement) {
 		
 		.card-more-info-btn {
 			position: absolute;
-			bottom: -35px; /* Position it just above the price info section */
-			left: 50%;
-			transform: translateX(-50%);
-			background-color: rgba(175, 96, 37, 0.95);
-			color: #fff;
-			border: 1px solid rgba(255, 179, 71, 0.5);
-			border-radius: 4px;
-			padding: 6px 12px;
-			font-size: 13px;
-			font-weight: bold;
+			bottom: 0; /* Align to the bottom of card */
+			left: 50%; /* Center horizontally */
+			transform: translateX(-50%); /* Center properly */
+			background-color: rgba(30, 30, 30, 0.95); /* Darker background to match PoE theme */
+			color: #af6025; /* Use the same orange color as headings */
+			border: 1px solid #af6025; /* More defined border with the theme color */
+			border-bottom: none; /* Remove bottom border */
+			border-top-left-radius: 6px; /* Round only top corners */
+			border-top-right-radius: 6px;
+			width: 30px; /* Slightly wider */
+			height: 22px; /* Not too tall */
+			padding: 0;
+			font-size: 14px; /* Slightly smaller font */
+			line-height: 1;
+			font-weight: bold; /* Make the + sign bold */
 			cursor: pointer;
-			z-index: 10;
+			z-index: 11; /* Ensure button is above all other elements */
 			transition: all 0.2s ease;
-			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+			box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3); /* Shadow above the button */
 			display: none; /* Hidden by default */
-			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-			letter-spacing: 0.5px;
+			text-shadow: 0 0 3px rgba(175, 96, 37, 0.5); /* Slight glow like PoE text */
+			align-items: center;
+			justify-content: center;
 		}
 		
 		/* Only show button for cards with map sources */
 		.card-list-item.has-map-sources .card-more-info-btn {
-			display: block;
+			display: flex; /* Show and use flex for centering the + sign */
 		}
 		
 		.card-more-info-btn:hover {
-			background-color: rgba(200, 120, 50, 0.95);
-			transform: translateX(-50%) translateY(-2px);
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+			background-color: rgba(40, 40, 40, 0.95);
+			color: #ff8c3a; /* Brighter orange on hover */
+			box-shadow: 0 -2px 6px rgba(175, 96, 37, 0.4); /* Enhanced glow on hover */
 		}
-		
+
 		.card-list-item.expanded .card-more-info-btn {
-			bottom: -35px; /* Keep consistent with non-expanded state */
+			bottom: 0; /* Keep consistent with non-expanded state */
+			background-color: rgba(175, 96, 37, 0.8); /* Make the active tab more visible */
+			color: #ffffff; /* White text for active state */
+			border-color: #ff8c3a; /* Brighter border for active state */
+			box-shadow: 0 -2px 8px rgba(175, 96, 37, 0.5); /* Enhanced glow for active state */
 		}
-		
+
 		.card-list-item.card-worth-farming {
 			box-shadow: 0 0 15px 2px rgba(255, 180, 0, 0.4);
 		}
@@ -843,7 +854,7 @@ export class HomePage extends SignalWatcher(LitElement) {
 		}
 
 		.card-info-wrapper {
-			margin-top: 45px; /* Add margin to make room for the button */
+			margin-top: 0; /* Remove top margin since button no longer affects spacing */
 			padding: 12px 10px;
 			text-align: center;
 			display: flex;

@@ -766,7 +766,8 @@ export class HomePage extends SignalWatcher(LitElement) {
 		.card-list-item {
 			position: relative;
 			box-sizing: border-box;
-			display: inline-block;
+			display: flex;
+			flex-direction: column;
 			margin: 10px 5px;
 			padding: 0;
 			width: 250px;
@@ -776,7 +777,7 @@ export class HomePage extends SignalWatcher(LitElement) {
 			overflow: hidden;
 			background: rgba(20, 20, 20, 0.8);
 			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-			padding-bottom: 8px;
+			padding-bottom: 0;
 		}
 		
 		/* Hide sources by default - CSS moved to e-card-with-sources component */
@@ -784,66 +785,80 @@ export class HomePage extends SignalWatcher(LitElement) {
 		.card-list-item.expanded {
 			width: 250px; /* Keep width the same */
 			z-index: 10; /* Ensure expanded cards appear above others */
-			display: block;
-			box-shadow: 0 4px 20px rgba(175, 96, 37, 0.3); /* Add a themed glow for expanded cards */
+			display: flex;
+			flex-direction: column;
+			box-shadow: 0 4px 20px rgba(175, 96, 37, 0.3);
 		}
 		
 		/* Add some spacing for expanded cards */
 		.card-list-item.expanded e-card-with-sources {
-			margin-bottom: 0; /* Remove bottom margin since we have the tab */
+			margin: 0;
+			padding: 0;
 		}
 		
 		/* Adjust card container for expanded state */
 		.card-container {
 			position: relative;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+		
+		.card-container e-card-with-sources {
+			margin: 0;
+			padding: 0;
+			display: block;
+		}
+		
+		/* Directly target the divination card to remove spacing */
+		.card-container e-card-with-sources e-divination-card {
+			margin: 0;
+			padding: 0;
+			display: block;
 		}
 		
 		.card-more-info-btn {
-			position: absolute;
-			bottom: 0; /* Align to the bottom of card */
-			left: 50%; /* Center horizontally */
-			transform: translateX(-50%); /* Center properly */
-			background-color: rgba(30, 30, 30, 0.95); /* Darker background to match PoE theme */
-			color: #af6025; /* Use the same orange color as headings */
-			border: 1px solid #af6025; /* More defined border with the theme color */
-			border-bottom: none; /* Remove bottom border */
-			border-top-left-radius: 6px; /* Round only top corners */
-			border-top-right-radius: 6px;
-			width: 30px; /* Slightly wider */
-			height: 22px; /* Not too tall */
+			position: relative;
+			width: 100%;
+			height: 20px;
+			margin: 0;
 			padding: 0;
-			font-size: 14px; /* Slightly smaller font */
-			line-height: 1;
-			font-weight: bold; /* Make the + sign bold */
+			background-color: rgba(10, 10, 10, 0.98);
+			color: #af6025;
+			border: none;
+			border-radius: 0;
+			font-size: 14px;
+			line-height: 20px;
+			font-weight: bold;
 			cursor: pointer;
-			z-index: 11; /* Ensure button is above all other elements */
+			z-index: 11;
 			transition: all 0.2s ease;
-			box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.3); /* Shadow above the button */
-			display: none; /* Hidden by default */
-			text-shadow: 0 0 3px rgba(175, 96, 37, 0.5); /* Slight glow like PoE text */
+			box-shadow: none;
+			display: none;
+			text-shadow: 0 0 3px rgba(175, 96, 37, 0.5);
 			align-items: center;
 			justify-content: center;
+			border-top: 1px solid #3d3d3d;
 		}
 		
 		/* Only show button for cards with map sources */
 		.card-list-item.has-map-sources .card-more-info-btn {
-			display: flex; /* Show and use flex for centering the + sign */
+			display: flex;
 		}
 		
 		.card-more-info-btn:hover {
-			background-color: rgba(40, 40, 40, 0.95);
-			color: #ff8c3a; /* Brighter orange on hover */
-			box-shadow: 0 -2px 6px rgba(175, 96, 37, 0.4); /* Enhanced glow on hover */
+			background-color: rgba(20, 20, 20, 0.98);
+			color: #ff8c3a;
 		}
 
 		.card-list-item.expanded .card-more-info-btn {
-			bottom: 0; /* Keep consistent with non-expanded state */
-			background-color: rgba(175, 96, 37, 0.8); /* Make the active tab more visible */
-			color: #ffffff; /* White text for active state */
-			border-color: #ff8c3a; /* Brighter border for active state */
-			box-shadow: 0 -2px 8px rgba(175, 96, 37, 0.5); /* Enhanced glow for active state */
+			background-color: rgba(175, 96, 37, 0.9); /* Slightly more opaque */
+			color: #ffffff;
 		}
-
+		
 		.card-list-item.card-worth-farming {
 			box-shadow: 0 0 15px 2px rgba(255, 180, 0, 0.4);
 		}

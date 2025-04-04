@@ -11,7 +11,7 @@ export class TopNavElement extends LitElement {
 	@property({ type: Array }) linkItems = [
 		['/', 'Home'],
 		['/maps', 'Maps'],
-		['/divcord', 'Divcord'],
+		['/divcord', 'Drop Data'],
 		['/verify', 'Verify'],
 		['/useful-resources', 'Useful Resources'],
 		['/weights', 'Weights'],
@@ -34,7 +34,7 @@ export class TopNavElement extends LitElement {
 
 	protected render(): TemplateResult {
 		return html`<nav class="navbar">
-			<div class="logo"><a @click=${() => this.#change_active_pathname('/')} href="/">Divicards</a></div>
+			<div class="logo"><a @click=${() => this.#change_active_pathname('/')} href="/">Is This Card Worth Farming?</a></div>
 			<ul class="links">
 				${this.linkItems.map(([pathname, s]) => {
 					return html`<li
@@ -53,7 +53,7 @@ export class TopNavElement extends LitElement {
 			</ul>
 			<div class="icons">
 				<theme-toggle></theme-toggle>
-				<a aria-label="github" target="_blank" href="https://github.com/shonya3/divicards-site">
+				<a aria-label="github" target="_blank" href="https://github.com/AmariLuigi/isthiscardworthit">
 					<sl-icon name="github"></sl-icon>
 				</a>
 			</div>

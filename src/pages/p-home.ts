@@ -195,7 +195,7 @@ export class HomePage extends SignalWatcher(LitElement) {
 		
 		return html`
 			<div class="hero">
-				<h1>Is This Card Worth It?</h1>
+				<h1>Is This Card Worth Farming?</h1>
 				<p>Find the most profitable Path of Exile divination cards to farm based on real-time market values and drop rates</p>
 			</div>
 

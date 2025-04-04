@@ -37,7 +37,7 @@ export const router = new Router({
 	routes: [
 		{
 			path: '/',
-			title: 'Is This Card Worth It? - PoE Farming Calculator',
+			title: 'Card Worth Farming - PoE Farming Calculator',
 			render: ({ query }) => {
 				return html`<p-home
 					.page=${Number(query.page ?? 1)}
@@ -48,7 +48,7 @@ export const router = new Router({
 		},
 		{
 			path: '/divcord',
-			title: 'Divcord Drop Data - Is This Card Worth It?',
+			title: 'Drop Data - Card Worth Farming',
 			plugins: [lazy(() => import('./pages/p-divcord'))],
 			render: ({ query }) => html`<p-divcord
 				.page=${Number(query.page ?? 1)}
@@ -61,10 +61,10 @@ export const router = new Router({
 			title: context => {
 				const slug = context.params?.slug;
 				if (!slug) {
-					return 'Card Not Found - Is This Card Worth It?';
+					return 'Card Not Found - Card Worth Farming';
 				}
 				const cardName = findCardBySlug(slug)?.name;
-				return cardName ? `${cardName} - Is This Card Worth It?` : 'Card Not Found - Is This Card Worth It?';
+				return cardName ? `${cardName} - Card Worth Farming` : 'Card Not Found - Card Worth Farming';
 			},
 			render: context => {
 				const card = findCardBySlug(context.params.slug);
@@ -160,7 +160,7 @@ export const router = new Router({
 		},
 		{
 			path: '/spreadsheet',
-			title: 'Divcord spreadsheet',
+			title: 'Drop data spreadsheet',
 			render: () => html`<e-divcord-spreadsheet .records=${table_records}></e-divcord-spreadsheet>`,
 		},
 	],

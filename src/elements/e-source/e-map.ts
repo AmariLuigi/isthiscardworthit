@@ -17,6 +17,7 @@ export class MapElement extends LitElement {
 	@property({ reflect: true }) href = '';
 	@property() renderMode: RenderMode = 'normal';
 	@property({ type: Number, attribute: 'image-size' }) imgSize?: number;
+	@property({ type: Number }) monsterLevel?: number;
 
 	get imageWidth(): number {
 		if (this.imgSize !== undefined) {
@@ -31,6 +32,10 @@ export class MapElement extends LitElement {
 				return 60;
 			}
 		}
+	}
+
+	get displayMonsterLevel(): number {
+		return this.monsterLevel ?? (this.map.tier ? this.map.tier + 67 : 30);
 	}
 
 	mapColor(): 'white' | 'yellow' | 'red' | 'special' {
@@ -69,7 +74,7 @@ export class MapElement extends LitElement {
 					<a @click=${this.#dispatch_transition} 
 					   href=${this.href} 
 					   class="name"
-					   title="${this.map.name} (Monster level: 30)"
+					   title="${this.map.name} (Monster level: ${this.displayMonsterLevel})"
 					><img
 							class=${classMap({ 'img-map-glyph': true })}
 							width=${this.imageWidth}

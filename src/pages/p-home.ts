@@ -124,15 +124,46 @@ export class HomePage extends SignalWatcher(LitElement) {
 	}
 
 	protected firstUpdated(): void {
-		effect(() => {
-			const url = new URL(window.location.href);
-			if (!url.searchParams.get('filter') && !this.#filter.get()) {
-				return;
-			}
-
-			url.searchParams.set('filter', this.#filter.get());
-			window.history.pushState(null, '', url);
+		window.addEventListener('popstate', () => {
+			this.handleUrlParamsChange();
 		});
+
+		// If user navigated back to this page, restore state from URL
+		this.handleUrlParamsChange();
+		
+		// Listen for card data updates from the card value provider
+		window.addEventListener('card-data-updated', () => {
+			console.log('[HOME] Card data updated event received, triggering UI refresh');
+			this.requestUpdate();
+			
+			// Force update of loading indicators
+			setTimeout(() => {
+				document.querySelectorAll('.card-price-tag.loading').forEach(el => {
+					console.log('[HOME] Removing loading class from price tag');
+					el.classList.remove('loading');
+				});
+			}, 100);
+		});
+	}
+
+	// Handle URL parameters changes
+	private handleUrlParamsChange(): void {
+		const url = new URL(window.location.href);
+		const filterParam = url.searchParams.get('filter');
+		const pageParam = url.searchParams.get('page');
+		const perPageParam = url.searchParams.get('per_page');
+		
+		if (filterParam) {
+			this.filter = filterParam;
+		}
+		
+		if (pageParam) {
+			this.page = parseInt(pageParam, 10) || 1;
+		}
+		
+		if (perPageParam) {
+			this.per_page = parseInt(perPageParam, 10) || 10;
+		}
 	}
 
 	protected render(): TemplateResult {

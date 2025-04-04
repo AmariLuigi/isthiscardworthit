@@ -9,6 +9,13 @@ import { DivinationCard, fetchDivinationCards, combineCardData, calculateCardWor
 import { fetchWeightsData } from '../services/weights-parser';
 import { poeData } from '../PoeData';
 
+// Define custom event for card data updates
+export class CardDataUpdatedEvent extends Event {
+  constructor() {
+    super('card-data-updated', { bubbles: true, composed: true });
+  }
+}
+
 export const cardValueContext = createContext<CardValueProvider>('card-value-context');
 
 export interface CardValueProvider {
@@ -165,6 +172,18 @@ export class CardValueProviderElement extends LitElement implements CardValuePro
     this.processCardsWithWeights(cards);
     this.isLoading = false;
     this.requestUpdate();
+    
+    // Dispatch event to notify components that card data has been updated
+    this.dispatchEvent(new CardDataUpdatedEvent());
+    
+    // Add a MutationObserver to check when cards are added to the DOM
+    setTimeout(() => {
+      document.querySelectorAll('.card-price-tag').forEach(el => {
+        if (el.classList.contains('loading')) {
+          el.classList.remove('loading');
+        }
+      });
+    }, 1000);
   }
 
   /**
@@ -186,6 +205,9 @@ export class CardValueProviderElement extends LitElement implements CardValuePro
         this.processCardsWithWeights(this.cards);
         this.isLoading = false;
         this.requestUpdate();
+        
+        // Dispatch event to notify components
+        this.dispatchEvent(new CardDataUpdatedEvent());
       }
     }, 10000); // 10 second timeout
 
@@ -226,6 +248,9 @@ export class CardValueProviderElement extends LitElement implements CardValuePro
       this.cards = ninjaCards;
       this.requestUpdate();
       console.log('[PROVIDER] Updated UI with initial card data (without weights)');
+      
+      // Dispatch initial data event to update UI immediately with prices
+      this.dispatchEvent(new CardDataUpdatedEvent());
       
       // Wait for weights data to finish loading
       const weights = await weightsPromise;
@@ -282,6 +307,9 @@ export class CardValueProviderElement extends LitElement implements CardValuePro
       
       this.isLoading = false;
       this.requestUpdate();
+      
+      // Dispatch event to notify components even in error case
+      this.dispatchEvent(new CardDataUpdatedEvent());
     }
   }
   
@@ -338,6 +366,16 @@ export class CardValueProviderElement extends LitElement implements CardValuePro
     // Ensure the component triggers an update to refresh the UI
     this.requestUpdate();
     console.log('[PROVIDER] Data refresh complete, UI update requested');
+    
+    // Dispatch event to notify all components that data is ready
+    this.dispatchEvent(new CardDataUpdatedEvent());
+    
+    // Force a refresh of loading indicators
+    setTimeout(() => {
+      document.querySelectorAll('.card-price-tag.loading').forEach(el => {
+        el.classList.remove('loading');
+      });
+    }, 500);
   }
 
   /**

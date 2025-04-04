@@ -1,6 +1,6 @@
 # Is This Card Worth It?
 
-A Path of Exile (PoE) divination card analysis tool based on the excellent [divicards-site](https://github.com/shonya3/divicards-site) repository.
+A Path of Exile (PoE) divination card analysis tool.
 
 ## Project Overview
 
@@ -65,10 +65,6 @@ Key commands:
 - `pnpm dev` - Start development server
 - `pnpm build` - Build for production
 - `pnpm preview` - Preview production build
-
-## Acknowledgments
-
-This project is based on [divicards-site](https://github.com/shonya3/divicards-site) by shonya3 and uses assets and data from the Path of Exile community.
 
 ## Disclaimer
 
